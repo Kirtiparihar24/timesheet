@@ -3,4 +3,13 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  validates_presence_of :name, :role
+
+  has_one_attached :avatar
+
+  enum role: %i[teacher admin]
+
+  has_many :time_entries
+
 end
