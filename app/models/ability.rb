@@ -11,10 +11,8 @@ class Ability
       can :manage, :all
     end
 
-    
     if user.persisted?
-      can :read, User
-      # can :manage, User, {id: user.id}
+      can :manage, User, {id: user.id}
       can :manage, TimeEntry, {user_id: user.id}
     end
     

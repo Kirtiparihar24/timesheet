@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   load_and_authorize_resource :user
 
+  before_action :authorize_admin, except: :show
+
   def index
   end
 
@@ -53,5 +55,10 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:name, :email, :password)
+    end
+
+    def authorize_admin
+      return unless !current_user.admin?
+      redirect_to root_path, alert: 'Admins only!'
     end
 end
