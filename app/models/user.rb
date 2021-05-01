@@ -10,6 +10,6 @@ class User < ApplicationRecord
 
   enum role: %i[teacher admin]
 
-  has_many :time_entries
+  has_many :time_entries, dependent: :destroy
 
 end

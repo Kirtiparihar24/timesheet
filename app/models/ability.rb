@@ -13,7 +13,8 @@ class Ability
 
     
     if user.persisted?
-      can :manage, User, {id: user.id}
+      can :read, User
+      # can :manage, User, {id: user.id}
       can :manage, TimeEntry, {user_id: user.id}
     end
     

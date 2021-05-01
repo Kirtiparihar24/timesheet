@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
-  devise_for :users
+  devise_for :users, path_prefix: 'admin'
+  
   resources :users do
     resources :time_entries do 
       resource :stop_timers, only: :update
