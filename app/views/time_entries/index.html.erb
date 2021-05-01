@@ -1,15 +1,19 @@
-<p id="notice"><%= notice %></p>
+<h3>My TimeSheet</h3>
 
-<h1>My TimeSheet</h1>
-
-<% if @active_timer.present? %>
-  <p> Clock In at <%= @active_timer.clock_in %> </p>
-  <%= link_to "Clock Out", user_time_entry_stop_timers_path(@user, @active_timer), method: :put %>
-<% else %>
-  <%= link_to "Clock In", user_start_timers_path(@user), method: :post %>
+<% if current_user.is_my_timesheet?(@user) %>
+  <figure class="well">
+    <% if @active_timer.present? %>
+      <%= link_to "Clock Out", user_time_entry_stop_timers_path(@user, @active_timer), method: :put, class: "btn btn-danger" %>
+      <figcaption class="figure-caption">Clock In at <%= @active_timer.clock_in %></figcaption>
+    <% else %>
+      <%= link_to "Clock In", user_start_timers_path(@user), method: :post, class: "btn btn-success" %>
+    <% end %>
+  </figure>
 <% end %>
 
-<table>
+<%= link_to 'Add new entry', new_user_time_entry_path(@user), class: "btn btn-primary" %>
+
+<table  class="table">
   <thead>
     <tr>
       <th>Clock In</th>
@@ -26,7 +30,7 @@
         <td><%= time_entry.clock_in %></td>
         <td><%= time_entry.clock_out %></td>
         <td><%= time_entry.detail %></td>
-        <td><%= time_entry.time_spent %></td>
+        <td><%= format_time(time_entry.time_spent) %></td>
         <td><%= link_to 'Edit', edit_user_time_entry_path(@user, time_entry) %></td>
         <td><%= link_to 'Delete', user_time_entry_path(@user, time_entry), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -34,6 +38,7 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'Add new entry', new_user_time_entry_path(@user) %>
+<figure class="well">
+  <figcaption class="figure-caption">Total Hours (HH:MM:SS)</figcaption>
+  <%= format_time(@time_entries.sum(&:time_spent)) %>
+</figure>

@@ -12,4 +12,8 @@ class User < ApplicationRecord
 
   has_many :time_entries, dependent: :destroy
 
+  def is_my_timesheet?(user_id)
+    id == user_id
+  end
+
 end
