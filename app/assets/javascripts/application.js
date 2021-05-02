@@ -8,3 +8,22 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
+//= require moment
+//= require bootstrap-datetimepicker
+
+$(function () {
+  $('.datetimepicker1').datetimepicker({
+    icons: {
+        time: 'fa fa-clock-o',
+        date: 'fa fa-calendar',
+        up: 'fa fa-chevron-up',
+        down: 'fa fa-chevron-down',
+        previous: 'fa fa-chevron-left',
+        next: 'fa fa-chevron-right',
+        today: 'fa fa-crosshairs',
+        clear: 'fa fa-trash-o',
+        close: 'fa fa-times'
+      },
+  });
+});
+

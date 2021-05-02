@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    user_url(user)
+    user_time_entries_path(user)
   end
   
 end
