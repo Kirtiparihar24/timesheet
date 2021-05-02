@@ -1,33 +1,37 @@
 <%= form_with(model: [@user, @time_entry], local: true) do |form| %>
-  <% if @time_entry.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@time_entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
+  <div class="card">
+    <div class="card-body">
+      <% if @time_entry.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@time_entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
 
-      <ul>
-        <% @time_entry.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+          <ul>
+            <% @time_entry.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="mb-3">
+        <%= form.label :clock_in, { class: "form-label"} %>
+        <%= form.text_field :clock_in, class: 'datetimepicker1', value: @time_entry.persisted? ? format_datetime(@time_entry.clock_in) : DateTime.now %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :clock_out, { class: "form-label"} %>
+        <%= form.text_field :clock_out, class: 'datetimepicker1', value: @time_entry.persisted? ? format_datetime(@time_entry.clock_out) : DateTime.now %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :detail, { class: "form-label"} %>
+        <%= form.text_area :detail, { class: "form-control"} %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.submit "Submit", class: "btn btn-primary" %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :clock_in %>
-    <%= form.text_field :clock_in, class: 'datetimepicker1', value: @time_entry.persisted? ? format_datetime(@time_entry.clock_in) : DateTime.now %>
-  </div>
-
-  <div class="field">
-    <%= form.label :clock_out %>
-    <%= form.text_field :clock_out, class: 'datetimepicker1', value: @time_entry.persisted? ? format_datetime(@time_entry.clock_out) : DateTime.now %>
-  </div>
-
-  <div>
-    <%= form.label :detail %>
-    <%= form.text_area :detail %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
   </div>
 <% end %>
 
