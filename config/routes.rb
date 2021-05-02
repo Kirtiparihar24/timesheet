@@ -1,7 +1,16 @@
 Rails.application.routes.draw do
-  root 'home#index'
   devise_for :users, path_prefix: 'admin'
   
+  devise_scope :user do
+    authenticated :user do
+      root 'home#index', as: :authenticated_root
+    end
+
+    unauthenticated do
+      root 'devise/sessions#new', as: :unauthenticated_root
+    end
+  end
+
   resources :users do
     resources :time_entries do 
       resource :stop_timers, only: :update
