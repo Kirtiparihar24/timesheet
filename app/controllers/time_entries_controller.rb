@@ -4,7 +4,7 @@ class TimeEntriesController < ApplicationController
 
   def index
     @time_entries = @time_entries.order(clock_in: :desc).complete
-    @active_timer = TimeEntry.active_timer.first
+    @active_timer = TimeEntry.active_timer(@user.id).first
   end
 
   def new

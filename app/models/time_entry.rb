@@ -6,7 +6,7 @@ class TimeEntry < ApplicationRecord
 
   scope :incomplete, -> { where(clock_out: nil) }
   scope :complete, -> { where.not(clock_out: nil) }
-  scope :active_timer, -> { where(clock_in: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, clock_out: nil) }
+  scope :active_timer, -> (user_id) { where(clock_in: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, clock_out: nil, user_id: user_id) }
 
   def time_spent
     self.clock_out.to_i - self.clock_in.to_i
