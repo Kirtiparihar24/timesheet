@@ -16,7 +16,8 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user.password = Devise.friendly_token.first(8)
+    # @user.password = Devise.friendly_token.first(8)
+    @user = User.new(user_params.merge(password: "Test1234"))
     respond_to do |format|
       if @user.save
         format.html { redirect_to users_path, notice: "User was successfully created." }
